@@ -1,5 +1,7 @@
 import React from "react";
 import ContactList from "./ContactList";
+import { createStore } from 'redux'
+
 
 var CONTACTS = [
   {
@@ -23,21 +25,25 @@ var CONTACTS = [
     phoneNumber: '+250456784935',
     image: 'https://media.giphy.com/media/RUUdVZqwpfTRS/giphy.gif'
   }
-];
+]
 
 
 export default class Layout extends React.Component {
-
-  state = {
-    displayedContacts: CONTACTS
+  constructor() {
+    super()
+    this.state = {
+      displayedContacts: CONTACTS
+    }
   }
 
   handleSearch(event) {
     var searchQuery = event.target.value.toLowerCase();
     var displayedContacts = CONTACTS.filter(function(contact){
-      var searchContact = contact.name.toLowerCase();
-      return searchContact.indexOf(searchQuery) !== -1;
-    })
+      var searchContactByName = contact.name.toLowerCase();
+      var searchContactByNumber = contact.phoneNumber;
+      return searchContactByName.indexOf(searchQuery) !== -1 || searchContactByNumber.indexOf(searchQuery) !== -1;
+    });
+
     this.setState({
       displayedContacts: displayedContacts
     });
