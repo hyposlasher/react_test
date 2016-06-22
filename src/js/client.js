@@ -1,29 +1,49 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore } from 'redux'
+import { combineReducers, createStore } from 'redux'
+import { Provider } from 'react-redux'
+import ReactRedux from 'react-redux'
 
 import Layout from "./components/Layout"
 
+//
+// class App extends React.Component {
+//   render() {
+//     return <div>Привет из App, { this.props.user }!</div>
+//   }
+// }
+//
+//
+// const initialState = {
+//   name: 'Василий',
+//   surname: 'Реактов',
+//   age: 27
+// }
+//
+// function mapStateToProps (state) {
+//   return {
+//     user: state.user
+//   }
+// }
+//
+// function userstate(state = initialState) {
+//   return state;
+// }
+//
+// function configureStore(initialState) {
+//   const store = createStore(rootReducer, initialState)
+//   return store
+// }
+
 const app = document.getElementById('app');
 
-const reducer = function(state, action) {
-  switch(action.type){
-    case "INC":  return state + action.payload;
-    case "DEC":  return state - action.payload;
-    default: return state;
-  }
-}
+// const store = configureStore()
 
-const store = createStore(reducer, 0)
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <App />
+//   </Provider>,
+//   app
+// )
 
-store.subscribe(() => {
-  console.log("store changed", store.getState())
-})
-
-store.dispatch({type: "INC", payload: 1})
-store.dispatch({type: "INC", payload: 2})
-store.dispatch({type: "INC", payload: 232})
-store.dispatch({type: "INC", payload: 123})
-store.dispatch({type: "DEC", payload: 5134})
-
-ReactDOM.render(<Layout />, app)
+ReactDOM.render( <Layout />, app)

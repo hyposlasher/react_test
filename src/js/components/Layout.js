@@ -27,7 +27,6 @@ var CONTACTS = [
   }
 ]
 
-
 export default class Layout extends React.Component {
   constructor() {
     super()
@@ -49,11 +48,39 @@ export default class Layout extends React.Component {
     });
   }
 
+  addContact(event){
+    event.preventDefault();
+    var contactName = document.getElementById("add-name").value;
+    var contactPhoneNumber = document.getElementById("add-phone-number").value;
+    var newContact = {
+      id: CONTACTS.length+1,
+      name: contactName,
+      phoneNumber: contactPhoneNumber,
+      image: 'http://moviez.su/uploads/posts/2013-11/1384767685_tumblr_lx1xwu4rof1qje5neo1_500.gif'
+    }
+    CONTACTS.push(newContact)
+    this.setState({
+      displayedContacts: CONTACTS
+    });
+  }
+
   render() {
 
     return (
       <div class="contacts">
-        <input type="text" class="search-field" onChange={this.handleSearch.bind(this)} />
+        <form>
+          <label>Name:</label>
+          <br/>
+          <input type="text" id="add-name" />
+          <br/>
+          <label>Phone Number:</label>
+          <br />
+          <input type="text" id="add-phone-number" />
+          <br/>
+          <button onClick={this.addContact.bind(this)}>Добавить</button>
+        </form>
+        <br/>
+        <input placeholder="Search" type="text" class="search-field" onChange={this.handleSearch.bind(this)} />
         <ul class="contacts-list">
           {
             this.state.displayedContacts.map(function(el){
@@ -66,6 +93,7 @@ export default class Layout extends React.Component {
             })
           }
         </ul>
+
       </div>
     );
   }
