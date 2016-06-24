@@ -5,7 +5,7 @@ module.exports = {
   watch: true,
   context: __dirname + "/src/",
   // devtool: debug ? "inline-sourcemap" : null,
-  entry: "./js/client.js",
+  entry: "./js/phoneBook.js",
   resolveLoader: {
     root: __dirname + "/node_modules"
   },
