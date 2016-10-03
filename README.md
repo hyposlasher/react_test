@@ -1,5 +1,4 @@
-# react_test
-first react app test
+# react+redux contact list
 
 1. npm i
 2. npm run dev
