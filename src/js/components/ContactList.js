@@ -1,16 +1,49 @@
 import React from "react";
+import { connect } from "react-redux"
+import Contact from "./Contact";
+import AddForm from "./AddForm";
+import {filterContacts } from "../redux/actions"
 
 
-export default class ContactList extends React.Component {
+class ContactList extends React.Component {
+
+  handleFilter(event){
+    this.props.dispatch(filterContacts(event.target.value))
+  }
+
   render() {
+
     return (
-      <li class="contact">
-        <img class="contact-image" src={this.props.image} width="60px" height="60px"/>
-        <div>
-          <div class="contact-name"> {this.props.name} </div>
-          <div class="contact-number"> {this.props.phoneNumber} </div>
-        </div>
-      </li>
+      <div class="contacts">
+
+        <input
+          placeholder="Search"
+          type="text"
+          class="search-field"
+          onChange={this.handleFilter.bind(this)}
+        />
+        <ul class="contacts-list">
+          {
+            this.props.filteredContacts.map(function(contact){
+              return <Contact
+                key={contact.id}
+                name={contact.name}
+                phoneNumber={contact.phoneNumber}
+              />
+            })
+          }
+        </ul>
+
+      </div>
     );
   }
 }
+
+const mapStateToProps = (state) => (
+  {
+    allContacts: state.allContacts,
+    filteredContacts: state.filteredContacts,
+  }
+)
+
+export default connect(mapStateToProps)(ContactList);
